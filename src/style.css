@@ -1,0 +1,144 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#top, 
+#bottom, 
+#left, 
+#right {
+	background: black;
+	position: absolute;
+    z-index: 5;
+}
+
+#left, 
+#right {
+    top: 0; 
+    bottom: 0;
+    width: 2vmin;
+}
+
+#left { 
+    left: -1vmin; 
+}
+
+#right { 
+    right: -1vmin; 
+}
+    
+#top, 
+#bottom {
+    left: 0; 
+    right: 0;
+    height: 2vmin;
+}
+
+#top { 
+    top: 0; 
+}
+
+#bottom { 
+    bottom: 0; 
+}
+
+
+.bodyBackground {
+    position: absolute;
+    background-image: url('images/internetwars.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    top: 0;
+}
+
+.glassCover {
+    position: absolute;
+    z-index: 2;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    top: 0;
+    /* From https://css.glass */
+    background: linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.25) 0%,
+        rgba(255, 154, 0, 0.25) 10%,
+        rgba(208, 222, 33, 0.25) 20%,
+        rgba(79, 220, 74, 0.25) 30%,
+        rgba(63, 218, 216, 0.25) 40%,
+        rgba(47, 201, 226, 0.25) 50%,
+        rgba(28, 127, 238, 0.25) 60%,
+        rgba(95, 21, 242, 0.25) 70%,
+        rgba(186, 12, 248, 0.25) 80%,
+        rgba(251, 7, 217, 0.25) 90%,
+        rgba(255, 0, 0, 0.25) 100%
+    );
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(6.5px);
+}
+
+.imgContainer {
+    position: absolute;
+    z-index: 3;
+    height: fit-content;
+    width: fit-content;
+    overflow: hidden;
+    top: 0;
+}
+
+.slider {
+    background-image: url('images/internetwars.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0.25;
+}
+
+.sliderButtons {
+    position: absolute;
+    z-index: 3;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    top: 0;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#prev,
+#next {
+    position: relative;
+    opacity: 0.2;
+    cursor: pointer;
+}
+
+#prev:hover,
+#next:hover {
+    opacity: 0.8;
+}
+
+#next {
+    right: 5vmin;
+    border-style: solid;
+    border-color: #FFF;
+    border-width: 0 1vmin 1vmin 0;
+    padding: 1vmin;
+    transform: rotate(-45deg);
+}
+
+#prev {
+    left: 3.25vmin;
+    border-style: solid;
+    border-color: #FFF;
+    border-width: 0 1vmin 1vmin 0;
+    padding: 1vmin;
+    transform: rotate(135deg);
+}
