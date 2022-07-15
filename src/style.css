@@ -2,45 +2,8 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-}
-
-#top, 
-#bottom, 
-#left, 
-#right {
-	background: black;
-	position: absolute;
-    z-index: 5;
-}
-
-#left, 
-#right {
-    top: 0; 
-    bottom: 0;
-    width: 2vmin;
-}
-
-#left { 
-    left: -1vmin; 
-}
-
-#right { 
-    right: -1vmin; 
-}
-    
-#top, 
-#bottom {
-    left: 0; 
-    right: 0;
-    height: 2vmin;
-}
-
-#top { 
-    top: 0; 
-}
-
-#bottom { 
-    bottom: 0; 
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -53,6 +16,8 @@ body {
     width: 100vw;
     overflow: hidden;
     top: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .glassCover {
@@ -62,20 +27,22 @@ body {
     width: 100vw;
     overflow: hidden;
     top: 0;
+    margin: 0;
+    padding: 0;
     /* From https://css.glass */
     background: linear-gradient(
         90deg,
-        rgba(255, 0, 0, 0.25) 0%,
-        rgba(255, 154, 0, 0.25) 10%,
-        rgba(208, 222, 33, 0.25) 20%,
-        rgba(79, 220, 74, 0.25) 30%,
-        rgba(63, 218, 216, 0.25) 40%,
-        rgba(47, 201, 226, 0.25) 50%,
-        rgba(28, 127, 238, 0.25) 60%,
-        rgba(95, 21, 242, 0.25) 70%,
-        rgba(186, 12, 248, 0.25) 80%,
-        rgba(251, 7, 217, 0.25) 90%,
-        rgba(255, 0, 0, 0.25) 100%
+        rgba(255, 0, 0, 0.2) 0%,
+        rgba(255, 154, 0, 0.2) 10%,
+        rgba(208, 222, 33, 0.2) 20%,
+        rgba(79, 220, 74, 0.2) 30%,
+        rgba(63, 218, 216, 0.2) 40%,
+        rgba(47, 201, 226, 0.2) 50%,
+        rgba(28, 127, 238, 0.2) 60%,
+        rgba(95, 21, 242, 0.2) 70%,
+        rgba(186, 12, 248, 0.2) 80%,
+        rgba(251, 7, 217, 0.2) 90%,
+        rgba(255, 0, 0, 0.2) 100%
     );
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.5px);
@@ -92,6 +59,9 @@ body {
 }
 
 .slider {
+    position: relative;
+    margin: 0;
+    padding: 0;
     background-image: url('images/internetwars.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -126,7 +96,7 @@ body {
 }
 
 #next {
-    right: 5vmin;
+    right: 3vmin;
     border-style: solid;
     border-color: #FFF;
     border-width: 0 1vmin 1vmin 0;
@@ -135,10 +105,103 @@ body {
 }
 
 #prev {
-    left: 3.25vmin;
+    left: 3vmin;
     border-style: solid;
     border-color: #FFF;
     border-width: 0 1vmin 1vmin 0;
     padding: 1vmin;
     transform: rotate(135deg);
+}
+
+.searchMenu {
+    position: absolute;
+    top: 2.5vmin;
+    left: 5vmin;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    justify-items: center;
+    align-items: center;
+    z-index: 7;
+    width: 100vw;
+}
+
+.searchBar {
+    position: relative;
+    justify-self: stretch;
+    left: 5vmin;
+    opacity: 0.25;
+}
+
+.searchBar::before {
+    content: "";
+    position: absolute;
+    left: -3vmin;
+    top: 0.6vmin;
+    height: 0.8vmin;
+    width: 0.8vmin;
+    border-radius: 50%;
+    border: 0.3vmin solid orange;
+    background-color: transparent;
+}
+
+.searchBar:hover::before {
+    cursor: pointer;
+    border: 0.4vmin solid orange;
+}
+
+.searchBar::after {
+    content: "";
+    position: absolute;
+    height: 0.3vmin;
+    width: 0.9vmin;
+    left: -2vmin;
+    top: 2vmin;
+    background: orange;
+    transform: rotate(45deg);
+}
+
+.searchBar:hover::after {
+    cursor: pointer;
+    height: 0.35vmin;
+    width: 0.95vmin;
+    background: orange;
+}
+
+#lookup {
+    appearance: none;
+    width: 90%;
+    height: 3vmin;
+    border-radius: 1vmin;
+    box-shadow: 0vmin 0.1vmin 0.5vmin 0.1vmin rgba(109,0,25,0.5) inset;
+}
+
+#lookup:hover {
+    box-shadow: 0vmin 0.1vmin 0.5vmin 0.1vmin var(--secondary-color) inset;
+}
+
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 1vmin;
+    font-size: 1.5vmin;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    cursor: pointer;
+    opacity: 0.25;
 }

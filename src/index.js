@@ -6,8 +6,6 @@ import joshuaTree from './images/joshuatree.jpg';
 import sunsetMaui from './images/sunsetmaui.jpg';
 import adeeb from './images/adeeb.jpg';
 import adeebHokkaido from './images/adeebhokkaido.jpg';
-import doubleView from './images/doubleview.jpg';
-import eggTwice from './images/eggtwice.jpg';
 import egguaTree from './images/egguatree.jpg';
 import flowerPillow from './images/flowerpillow.jpg';
 import hakodate from './images/hakodate.jpg';
@@ -35,13 +33,14 @@ let bodyBackground = document.querySelector('.bodyBackground')
 let displayedImage = document.querySelector('.slider');
 let nextButton = document.getElementById('next');
 let prevButton = document.getElementById('prev');
+let dropdown = document.querySelector('.dropbtn');
+let dropContent = document.querySelector('.dropdownContent');
+let cities = document.querySelectorAll('.location');
 
 //Create an array to hold the images
 let imageSlider = [
     joshuaTree,
     egguaTree,
-    eggTwice,
-    doubleView,
     sapporo,
     hokkaido,
     hokkaidoFlowers,
@@ -92,12 +91,18 @@ advanceSlider();
 
 //Create a set of function that fadeOut and then immediately fadeIn the new image
 function fadeOut() {
+    let pos = 0;
     displayedImage.style.opacity = 0.25;
     bodyBackground.style.opacity = 1;
     let fadeAway = setInterval(() => {
-        if (displayedImage.style.opacity > 0) {
-            displayedImage.style.opacity -= 0.05;
-            bodyBackground.style.opacity -= 0.1;
+        if (displayedImage.style.opacity > 0 && pos < 2.5) {
+            displayedImage.style.opacity -= 0.01;
+            bodyBackground.style.opacity -= 0.02;
+
+            pos += 0.05;
+            displayedImage.style.right = `${pos}vmin`
+            bodyBackground.style.left = `${pos}vmin`
+            console.log(pos);
         } else {
             clearInterval(fadeAway);
             (indexDir === "forward") ? changeIndex() : revIndex();
@@ -108,15 +113,23 @@ function fadeOut() {
 
 
 function fadeIn() {
+    let pos = 1.25;
+
     let opacity = 0
     let bodyOpacity = 0.5
     let appear = setInterval(() => {
         if (opacity < 0.25) {
-            opacity += 0.05;
+            opacity += 0.01;
             bodyOpacity += 0.1;
             displayedImage.style.opacity = opacity;
             bodyBackground.style.opacity += bodyOpacity;
+
+            pos -= 0.05;
+            displayedImage.style.right = `${pos}vmin`
+            bodyBackground.style.left = `${pos}vmin`
         } else {
+            displayedImage.style.right = 0
+            bodyBackground.style.left = 0
             displayedImage.style.opacity = 0.25;
             bodyBackground.style.opacity = 1;
             clearInterval(appear);
@@ -145,12 +158,73 @@ function revIndex() {
     bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
 }
 
-//Create a function to automatically change the background if no click;
+//Create a button to display the "lets travel" dropdown menu
+//click outside of it to close it
+function dropDownMenu() {
+    dropdown.addEventListener('click', () => {
+        dropContent.style.display = 'block';
 
-function autoAdvance() {
-    setInterval(function() {
-        nextButton.click();
-    }, 20000);
+        document.addEventListener('click', (e) => {
+            let isClickInside = dropContent.contains(e.target);
+            let exceptAddButton = dropdown.contains(e.target);
+
+            if (!isClickInside && !exceptAddButton) {
+                dropContent.style.display = "none";
+            };
+        });
+    })
+
+
 }
 
-autoAdvance();
+dropDownMenu();
+
+//Add functionality to the dropdown content items to change the background and location
+function changePicAndWeather() {
+    cities.forEach(element => {
+        element.addEventListener('click', () => {
+            if (element.textContent == "Maui") {
+                let arr = [11, 12, 13, 14, 15, 16];
+                let random = Math.floor(Math.random() * arr.length)
+                index = arr[random];
+                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
+                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+            } else if (element.textContent == "Osaka") {
+                let arr = [22, 23, 24, 25];
+                let random = Math.floor(Math.random() * arr.length)
+                index = arr[random];
+                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
+                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+            } else if (element.textContent == "Joshua Tree") {
+                let arr = [0, 1];
+                let random = Math.floor(Math.random() * arr.length)
+                index = arr[random];
+                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
+                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+            } else if (element.textContent == "Tokyo") {
+                let arr = [6, 7, 8, 9 ,10];
+                let random = Math.floor(Math.random() * arr.length)
+                index = arr[random];
+                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
+                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+            } else if (element.textContent == "Lake Tahoe") {
+                let arr = [19, 20, 21];
+                let random = Math.floor(Math.random() * arr.length)
+                index = arr[random];
+                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
+                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+            } else if (element.textContent == "Sapporo") {
+                let arr = [2, 3, 4, 5];
+                let random = Math.floor(Math.random() * arr.length)
+                index = arr[random];
+                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
+                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+            }
+
+            dropContent.style.display = "none";
+        })
+    });
+}
+
+changePicAndWeather();
+
