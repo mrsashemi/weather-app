@@ -1,230 +1,114 @@
-import './style.css';
-import internetWars from './images/internetwars.jpg';
-import blackSandWave from './images/blacksandwave.jpg';
-import hasibSand from './images/hasibsand.jpg';
-import joshuaTree from './images/joshuatree.jpg';
-import sunsetMaui from './images/sunsetmaui.jpg';
-import adeeb from './images/adeeb.jpg';
-import adeebHokkaido from './images/adeebhokkaido.jpg';
-import egguaTree from './images/egguatree.jpg';
-import flowerPillow from './images/flowerpillow.jpg';
-import hakodate from './images/hakodate.jpg';
-import hakodateView from './images/hakodateview.jpg';
-import hanaCave from './images/hanacave.jpg';
-import hasib from './images/hasib.jpg';
-import hasibAdeeb from './images/hasibadeeb.jpg';
-import hasibAndJebbie from './images/hasibandjebbie.jpg';
-import hawaiiView from './images/hawaiiview.jpg';
-import hokkaido from './images/hokkaido.jpg';
-import hokkaidoFlowers from './images/hokkaidoflowers.jpg';
-import milad from './images/milad.jpg';
-import murakami from './images/murakami.jpg';
-import osakaMan from './images/osakaman.jpg';
-import osakaMan2 from './images/osakaman2.jpg';
-import osaktapus from './images/osaktapus.jpg';
-import osaktapus2 from './images/osaktapus2.jpg';
-import sapporo from './images/sapporo.jpg';
-import treeStars from './images/treestars.jpg';
-import stars from './images/stars.jpg';
+
+import {format} from 'date-fns'
+
+//cache DOM
+let currentWeather = document.querySelector('.currentWeather');
+let currentCity = document.querySelector('.city');
+let currentTime = document.querySelector('.time');
+let currentTemp = document.querySelector('.temp');
+let currentIcon = document.querySelector('.weatherIcon')
+
+let tempIcon = document.querySelector('.tempIcon');
+let humidityIcon = document.querySelector('.humidityIcon');
+let cloudIcon = document.querySelector('.cloudIcon');
+let windIcon = document.querySelector('.windIcon');
+
+let feelsLike = document.querySelector('.itFeelsLike');
+let humidity = document.querySelector('.humidityPercentage');
+let cloudiness = document.querySelector('.cloudiness');
+let wind = document.querySelector('.windSpeed');
+
+let dayOfWeek = document.querySelectorAll('.day');
+let highTemp = document.querySelectorAll('.high');
+let lowTemp = document.querySelectorAll('.low');
+let weeklyIcon = document.querySelectorAll('.weekIcon');
+
+let currentDay;
+let currentDate;
+
+async function getWeather() {
+    const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Osaka&APPID=99b2660cb4dd6a884a9f1fbb2a34ba05&units=imperial', {mode: 'cors'});
+    const weatherData = await response.json();
+    console.log(weatherData);
+
+    currentWeather.textContent = weatherData.weather[0].description;
+    currentCity.textContent = weatherData.name;
+    currentTemp.textContent = `${weatherData.main.feels_like} \u00B0 F`;
+    currentIcon.src = `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`
 
 
-//Cache Dom
-let bodyBackground = document.querySelector('.bodyBackground')
-let displayedImage = document.querySelector('.slider');
-let nextButton = document.getElementById('next');
-let prevButton = document.getElementById('prev');
-let dropdown = document.querySelector('.dropbtn');
-let dropContent = document.querySelector('.dropdownContent');
-let cities = document.querySelectorAll('.location');
+   let timeChange = weatherData.timezone * 1000
+   let utcTime = new Date().getTimezoneOffset()*60*1000;
 
-//Create an array to hold the images
-let imageSlider = [
-    joshuaTree,
-    egguaTree,
-    sapporo,
-    hokkaido,
-    hokkaidoFlowers,
-    adeebHokkaido,
-    adeeb, 
-    hasibAdeeb, 
-    hasib, 
-    flowerPillow, 
-    murakami,
-    hanaCave,
-    blackSandWave,
-    hasibSand,
-    hasibAndJebbie,
-    sunsetMaui,
-    hawaiiView,
-    hakodate, 
-    hakodateView,
-    stars,
-    treeStars,
-    milad, 
-    osaktapus2, 
-    osaktapus, 
-    osakaMan2, 
-    osakaMan 
-];
+    let today = format(new Date((new Date().getTime())+utcTime+timeChange), 'EEEE yyyy-MM-dd HH:mm');
+    currentTime.textContent = today;
+    currentDay = today.split(' ')[0];
+    currentDate = today.split(' ')[1];
+    console.log(currentDate);
+    console.log(currentDay);
 
-//set the displayed image to the first index of the array;
-let index = 0;
-let indexDir = "forward";
+    feelsLike.textContent = `${weatherData.main.feels_like} \u00B0 F`;
+    humidity.textContent = `${weatherData.main.humidity}%`
+    cloudiness.textContent = `${weatherData.clouds.all}%`
+    wind.textContent = `About ${weatherData.wind.speed} mph`
 
-displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
-bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+    tempIcon.src = `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
+    humidityIcon.src = 'https://icons.veryicon.com/png/128/weather/weather-colored-outline/humidity-24.png';
+    cloudIcon.src = `https://www.veryicon.com/download/png/weather/icon-by-qning/weather-icon-cloudy?s=256`;
+    windIcon.src = 'https://cdn-icons-png.flaticon.com/128/1458/1458846.png';
 
-//Create a set of buttons that will advance the image
-let advanceSlider = function() {
-    nextButton.addEventListener('click', () => {
-        indexDir = "forward";
-        fadeOut();
-    });
-
-    prevButton.addEventListener('click', () => {
-        indexDir = "reverse";
-        fadeOut();
-    })
 }
 
-advanceSlider();
+getWeather();
 
-//Create a set of function that fadeOut and then immediately fadeIn the new image
-function fadeOut() {
-    let pos = 0;
-    displayedImage.style.opacity = 0.25;
-    bodyBackground.style.opacity = 1;
-    let fadeAway = setInterval(() => {
-        if (displayedImage.style.opacity > 0 && pos < 2.5) {
-            displayedImage.style.opacity -= 0.01;
-            bodyBackground.style.opacity -= 0.02;
+async function forecastWeather() {
+    const response = await fetch('https://api.openweathermap.org/data/2.5/forecast?q=Osaka&APPID=99b2660cb4dd6a884a9f1fbb2a34ba05&units=imperial', {mode: 'cors'});
+    const futureData = await response.json();
+    console.log(futureData);
 
-            pos += 0.05;
-            displayedImage.style.right = `${pos}vmin`
-            bodyBackground.style.left = `${pos}vmin`
-            console.log(pos);
-        } else {
-            clearInterval(fadeAway);
-            (indexDir === "forward") ? changeIndex() : revIndex();
-            fadeIn();
-        }
-    }, 50);
-}
+    let daysArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    let index = daysArray.indexOf(currentDay) + 1;
 
-
-function fadeIn() {
-    let pos = 1.25;
-
-    let opacity = 0
-    let bodyOpacity = 0.5
-    let appear = setInterval(() => {
-        if (opacity < 0.25) {
-            opacity += 0.01;
-            bodyOpacity += 0.1;
-            displayedImage.style.opacity = opacity;
-            bodyBackground.style.opacity += bodyOpacity;
-
-            pos -= 0.05;
-            displayedImage.style.right = `${pos}vmin`
-            bodyBackground.style.left = `${pos}vmin`
-        } else {
-            displayedImage.style.right = 0
-            bodyBackground.style.left = 0
-            displayedImage.style.opacity = 0.25;
-            bodyBackground.style.opacity = 1;
-            clearInterval(appear);
-        }
-    }, 100);
-}
-
-//Create a functions to advance or reverse the index
-function changeIndex() {
-    if (index === imageSlider.length - 1) {
-        index = 0;
-    } else {
-        index++;
-    }
-    displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
-    bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
-}
-
-function revIndex() {
-    if(index === 0) {
-        index = imageSlider.length - 1
-    } else {
-        index--;
-    }
-    displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
-    bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
-}
-
-//Create a button to display the "lets travel" dropdown menu
-//click outside of it to close it
-function dropDownMenu() {
-    dropdown.addEventListener('click', () => {
-        dropContent.style.display = 'block';
-
-        document.addEventListener('click', (e) => {
-            let isClickInside = dropContent.contains(e.target);
-            let exceptAddButton = dropdown.contains(e.target);
-
-            if (!isClickInside && !exceptAddButton) {
-                dropContent.style.display = "none";
-            };
-        });
+    dayOfWeek.forEach(e => {
+       e.textContent = daysArray[index];
+       (index == 6) ? index = 0 : index++;
     })
 
+    let i = 0;
+    let forecastDateArr = [];
+
+    for (let i = 0; i < futureData.list.length; i++) {
+        if(futureData.list[i].dt_txt.split(' ')[0] != currentDate) {
+            currentDate = futureData.list[i].dt_txt.split(' ')[0];
+            forecastDateArr.push(i);
+        }
+    }
+
+    console.log(forecastDateArr);
+
+    highTemp.forEach(e => {
+        e.textContent = `${futureData.list[forecastDateArr[i]].main.temp_max} \u00B0 F`;
+        (i == forecastDateArr.length - 1) ? i = 0 : i++;
+    })
+
+    lowTemp.forEach(e => {
+        e.textContent = `${futureData.list[forecastDateArr[i]].main.temp_min} \u00B0 F`;
+        (i == forecastDateArr.length - 1) ? i = 0 : i++;
+    })
+
+    weeklyIcon.forEach(e => {
+        e.src = `http://openweathermap.org/img/wn/${futureData.list[forecastDateArr[i]].weather[0].icon}@2x.png`;
+        (i == forecastDateArr.length - 1) ? i = 0 : i++;
+    })
+    
+
+
+
+
+
+
 
 }
 
-dropDownMenu();
-
-//Add functionality to the dropdown content items to change the background and location
-function changePicAndWeather() {
-    cities.forEach(element => {
-        element.addEventListener('click', () => {
-            if (element.textContent == "Maui") {
-                let arr = [11, 12, 13, 14, 15, 16];
-                let random = Math.floor(Math.random() * arr.length)
-                index = arr[random];
-                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
-                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
-            } else if (element.textContent == "Osaka") {
-                let arr = [22, 23, 24, 25];
-                let random = Math.floor(Math.random() * arr.length)
-                index = arr[random];
-                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
-                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
-            } else if (element.textContent == "Joshua Tree") {
-                let arr = [0, 1];
-                let random = Math.floor(Math.random() * arr.length)
-                index = arr[random];
-                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
-                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
-            } else if (element.textContent == "Tokyo") {
-                let arr = [6, 7, 8, 9 ,10];
-                let random = Math.floor(Math.random() * arr.length)
-                index = arr[random];
-                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
-                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
-            } else if (element.textContent == "Lake Tahoe") {
-                let arr = [19, 20, 21];
-                let random = Math.floor(Math.random() * arr.length)
-                index = arr[random];
-                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
-                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
-            } else if (element.textContent == "Sapporo") {
-                let arr = [2, 3, 4, 5];
-                let random = Math.floor(Math.random() * arr.length)
-                index = arr[random];
-                displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
-                bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
-            }
-
-            dropContent.style.display = "none";
-        })
-    });
-}
-
-changePicAndWeather();
+forecastWeather();
 

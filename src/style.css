@@ -72,12 +72,11 @@ body {
 
 .sliderButtons {
     position: absolute;
-    z-index: 3;
+    z-index: 20;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
     top: 0;
-    z-index: 6;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -205,3 +204,67 @@ body {
     cursor: pointer;
     opacity: 0.25;
 }
+
+.weatherContent {
+    position: absolute;
+    top: 15vmin;
+    display: grid;
+    grid-template-areas:   
+        "today break break details"
+        "weekly weekly weekly weekly";
+    justify-items: center;
+    align-items: center;
+    z-index: 7;
+    width: 100vw;
+    gap: 5vmin;
+}
+
+.todayWeather {
+    position: relative;
+    grid-area: today;
+}
+
+.todayDetails {
+    position: relative;
+    grid-area: details;
+    display: flex;
+    flex-direction: column;
+    left: 15vmin;
+    gap: 2vmin;
+}
+
+.weeklyWeather {
+    display: flex;
+    position: relative;
+    grid-area: weekly;
+    top: 5vmin;
+    gap: 10vmin;
+}
+
+
+.breakContent {
+    grid-area: break;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.humidityIcon,
+.cloudIcon,
+.tempIcon,
+.windIcon {
+    max-width: 25%;
+    height: auto;
+}
+
+.weekIcon {
+    max-width: 50%;
+    height: auto;
+}
+
+
