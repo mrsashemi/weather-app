@@ -26,7 +26,7 @@ import osaktapus2 from './images/osaktapus2.jpg';
 import sapporo from './images/sapporo.jpg';
 import treeStars from './images/treestars.jpg';
 import stars from './images/stars.jpg';
-
+import { forecastWeather, getWeather } from "./index.js";
 
 //Cache Dom
 let bodyBackground = document.querySelector('.bodyBackground')
@@ -188,6 +188,8 @@ function changePicAndWeather() {
                 index = arr[random];
                 displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
                 bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+                getWeather("Lahaina");
+                forecastWeather("Lahaina");
             } else if (element.textContent == "Osaka") {
                 let arr = [22, 23, 24, 25];
                 let random = Math.floor(Math.random() * arr.length)
@@ -212,12 +214,19 @@ function changePicAndWeather() {
                 index = arr[random];
                 displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
                 bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+                getWeather("Tahoe City");
+                forecastWeather("Tahoe City");
             } else if (element.textContent == "Sapporo") {
                 let arr = [2, 3, 4, 5];
                 let random = Math.floor(Math.random() * arr.length)
                 index = arr[random];
                 displayedImage.style['background-image'] = `url(${imageSlider[index]})`;
                 bodyBackground.style['background-image'] = `url(${imageSlider[index]})`;
+            }
+            
+            if (element.textContent != "Maui" && element.textContent != "Lake Tahoe") {
+                getWeather(element.textContent);
+                forecastWeather(element.textContent);
             }
 
             dropContent.style.display = "none";

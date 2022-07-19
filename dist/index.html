@@ -12,27 +12,10 @@
     <div class="imgContainer">
         <div class="slider"></div>
     </div>
-    <div class="searchMenu">
-        <div class="searchBar">
-            <label for="lookup"></label>
-            <input type="search" id="lookup" placeholder="Search a location" data-search>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">Let's Travel</button>
-            <div class="dropdownContent">
-                <div class="location">Maui</div>
-                <div class="location">Osaka</div>
-                <div class="location">Joshua Tree</div>
-                <div class="location">Tokyo</div>
-                <div class="location">Lake Tahoe</div>
-                <div class="location">Sapporo</div>
-            </div>
-        </div>
-    </div>
-    <div class="weatherContent">
+    <div class="weatherContent" id="hidden">
         <div class="todayWeather">
             <h1 class="currentWeather">Overcast</h1>
-            <h5 class="city">San Francisco</h5>
+            <h3 class="city">San Francisco</h3>
             <div class="time">Tuesday</div>
             <div class="temp">61 F</div>
             <img src="" alt="" class="weatherIcon">
@@ -91,6 +74,24 @@
                 <li class="low">60</li>
                 <li class="icon"><img src="" alt="" class="weekIcon"></li>
             </ul>
+        </div>
+    </div>
+    <div class="searchMenu">
+        <div class="searchBar">
+            <label for="lookup"></label>
+            <input type="search" id="lookup" placeholder="Search by City or City,Country..." data-search>
+            <button class="lookup">Search Weather</button>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Let's Travel</button>
+            <div class="dropdownContent">
+                <div class="location">Maui</div>
+                <div class="location">Osaka</div>
+                <div class="location">Joshua Tree</div>
+                <div class="location">Tokyo</div>
+                <div class="location">Lake Tahoe</div>
+                <div class="location">Sapporo</div>
+            </div>
         </div>
     </div>
     <div class="sliderButtons">
