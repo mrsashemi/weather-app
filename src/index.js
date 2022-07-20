@@ -66,7 +66,7 @@ export async function getWeather(location) {
     } catch(err) {
         console.log("err");
         searchWeather.value = "";
-        searchWeather.placeholder = "Try again, please ensure to input the City, City,Country, or City,State,Country (US only) "
+        searchWeather.placeholder = "Try again, please ensure to input the City, City,Country, or if you are in the US then City,State,Country works as well"
     }
 }
 
