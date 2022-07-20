@@ -141,7 +141,8 @@ body {
     justify-self: stretch;
     left: 5vmin;
     opacity: 0.75;
-    display: flex;
+    padding: 0.4vmin;
+    width: 90%
 }
 
 .searchBar::before {
@@ -179,46 +180,45 @@ body {
 }
 
 #lookup {
+    position: relative;
+    font-family: '8bit', 'Courier New', Courier, monospace;
+    font-size: 1.5vmin;
     appearance: none;
-    width: 90%;
+    width: 100%;
     height: 3vmin;
     border-radius: 1vmin;
     box-shadow: 0vmin 0.1vmin 0.5vmin 0.1vmin rgba(109,0,25,0.5) inset;
+    line-height: 1;
+    box-sizing: border-box;
+    outline: none;
+    border: 0.1vmin solid #ccc;
     /*CSS Glass*/
-    background: linear-gradient(
-        45deg,
-        rgba(255, 0, 0, 0.2) 0%,
-        rgba(255, 154, 0, 0.2) 10%,
-        rgba(208, 222, 33, 0.2) 20%,
-        rgba(79, 220, 74, 0.2) 30%,
-        rgba(63, 218, 216, 0.2) 40%,
-        rgba(47, 201, 226, 0.2) 50%,
-        rgba(28, 127, 238, 0.2) 60%,
-        rgba(95, 21, 242, 0.2) 70%,
-        rgba(186, 12, 248, 0.2) 80%,
-        rgba(251, 7, 217, 0.2) 90%,
-        rgba(255, 0, 0, 0.2) 100%
-    );
+    background: rgb(248, 248, 203, 0.75);
     backdrop-filter: blur(8.5px);
     -webkit-backdrop-filter: blur(6.5px);
 }
 
 #lookup::placeholder {
-    color: wheat;
+    font-size: 1vmin;
     position: relative;
     font-family: '8bit', 'Courier New', Courier, monospace;
-    left: 1vmin;
 }
 
 #lookup:hover {
     box-shadow: 0vmin 0.1vmin 0.5vmin 0.1vmin var(--secondary-color) inset;
 }
 
-.searchBar > button {
-    opacity: 0.5;
-    position: relative;
-    top: 0.19vmin;
-    right: 18.4vmin;
+.lookup {
+    position: absolute;
+    font-size: 1vmin;
+    opacity: 0.75;
+    top: 0.6vmin;
+    right: 0.6vmin;
+    bottom: 0.6vmin;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0 1vmin;
     appearance: none;
     width: 20%;
     height: 2.5vmin;
@@ -232,11 +232,19 @@ body {
     1px -1px 0 black,
     -1px 1px 0 black,
     1px 1px 0 black;
+    z-index: 30;
+}
+
+#lookup::-webkit-search-cancel-button{
+    position:relative;
+    right: 21vmin;    
+    bottom: 0.75vmin;
 }
 
 .dropbtn {
     font-family: '8bit', 'Courier New', Courier, monospace;
     background-color: #3498DB;
+    box-shadow: 0vmin 0.1vmin 0.5vmin 0.1vmin rgba(109,0,25,0.5);
     color: white;
     padding: 1vmin;
     font-size: 1.5vmin;
@@ -249,6 +257,10 @@ body {
     -1px 1px 0 black,
     1px 1px 0 black;
     width: 10vmin;
+    border-top-right-radius: 1vmin;
+    border-top-left-radius: 1vmin;
+    border-bottom-right-radius: 1vmin;
+    border-bottom-left-radius: 1vmin;
 }
 
 .dropdown {
@@ -258,13 +270,16 @@ body {
   
 
 .dropdownContent {
+    font-size: 1vmin;
     display: none;
     position: absolute;
     width: 8vmin;
     padding: 1vmin;
     z-index: 1;
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.75;
+    border-bottom-right-radius: 1vmin;
+    border-bottom-left-radius: 1vmin;
     /*CSS Glass*/
     background: linear-gradient(
         90deg,
@@ -374,4 +389,23 @@ ul {
     height: auto;
 }
 
+li {
+    font-size: 1.5vmin;
+}
+
+h1 {
+    font-size: 3vmin;
+}
+
+h3 {
+    font-size: 2vmin;
+}
+
+.temp {
+    font-size: 1.5vmin;
+}
+
+.time {
+    font-size: 1vmin;
+}
 

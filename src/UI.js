@@ -162,6 +162,8 @@ function revIndex() {
 function dropDownMenu() {
     dropdown.addEventListener('click', () => {
         dropContent.style.display = 'block';
+        dropdown.style["border-bottom-right-radius"] = 0;
+        dropdown.style["border-bottom-left-radius"] = 0;
 
         document.addEventListener('click', (e) => {
             let isClickInside = dropContent.contains(e.target);
@@ -169,6 +171,8 @@ function dropDownMenu() {
 
             if (!isClickInside && !exceptAddButton) {
                 dropContent.style.display = "none";
+                dropdown.style["border-bottom-right-radius"] = "1vmin";
+                dropdown.style["border-bottom-left-radius"] = "1vmin";
             };
         });
     })
